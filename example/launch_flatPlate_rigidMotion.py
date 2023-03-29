@@ -31,7 +31,7 @@
 
 import sys
 from optparse import OptionParser	# use a parser for configuration
-import SU2_PY.pySU2.pysu2 as pysu2         # imports the SU2 wrapped module
+import pysu2         # imports the SU2 wrapped module
 from math import *
 import numpy as np
 
