@@ -22,6 +22,8 @@ jobs:
     strategy:
       matrix:
         os-version: ["python:3.7-bullseye", "python:3.8-bullseye", "python:3.9-bullseye", "python:3.10-bullseye", "python:3.11-bullseye"]
+        branch: ["develop"]
+
     runs-on: ubuntu-latest
     container: ${{ matrix.os-version }}
     steps:
@@ -39,6 +41,7 @@ jobs:
           cd su2_build
           git clone --recursive https://github.com/su2code/SU2
           cd SU2
+          git checkout ${{ matrix.branch }}
           ./meson.py build -Denable-pywrapper=true
           ./ninja -C build install
           mv build/SU2_PY/pySU2 pysu2
@@ -54,8 +57,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{env.RELEASE_VERSION}}-${{env.OS_TAG}}
-          release_name: Release ${{env.RELEASE_VERSION}}-${{env.OS_TAG}}
+          tag_name: ${{env.RELEASE_VERSION}}-${{env.OS_TAG}}-${{ matrix.branch }}
+          release_name: Release ${{env.RELEASE_VERSION}}-${{env.OS_TAG}}-${{ matrix.branch }}
           draft: false
           prerelease: false
 
