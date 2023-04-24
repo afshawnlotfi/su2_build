@@ -44,7 +44,6 @@ jobs:
           git checkout ${{ matrix.branch }}
           ./meson.py build -Denable-pywrapper=true
           ./ninja -C build install
-          mv build build
           zip -r build.zip build
 
       - name: Release Tag
