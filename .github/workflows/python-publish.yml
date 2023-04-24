@@ -8,7 +8,7 @@
 
 name: Upload Python Package
 
-# on: push
+on: push
 
 env:
   RELEASE_VERSION: 7.5.1
@@ -44,8 +44,8 @@ jobs:
           git checkout ${{ matrix.branch }}
           ./meson.py build -Denable-pywrapper=true
           ./ninja -C build install
-          mv build/SU2_PY/pySU2 pysu2
-          zip -r pysu2.zip pysu2
+          mv build build
+          zip -r build.zip build
 
       - name: Release Tag
         run: |
@@ -69,8 +69,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
-          asset_path: su2_build/SU2/pysu2.zip
-          asset_name: pysu2.zip
+          asset_path: su2_build/SU2/build.zip
+          asset_name: build.zip
           asset_content_type: application/zip
 
 
