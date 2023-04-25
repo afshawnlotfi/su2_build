@@ -21,7 +21,7 @@ jobs:
   deploy:
     strategy:
       matrix:
-        os-version: ["python:3.7-bullseye", "python:3.8-bullseye", "python:3.9-bullseye", "python:3.10-bullseye", "python:3.11-bullseye"]
+        os-version: ["python:3.10-bullseye"]
         branch: ["develop"]
 
     runs-on: ubuntu-latest
@@ -42,7 +42,7 @@ jobs:
           git clone --recursive https://github.com/su2code/SU2
           cd SU2
           git checkout ${{ matrix.branch }}
-          ./meson.py build -Denable-pywrapper=true
+          ./meson.py build -Denable-pywrapper=true -Dwith-mpi=disabled
           ./ninja -C build install
           zip -r build.zip build
 
