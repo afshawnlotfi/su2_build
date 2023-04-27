@@ -39,7 +39,7 @@ jobs:
         run: |
           mkdir su2_build
           cd su2_build
-          git clone --recursive https://github.com/su2code/SU2
+          git clone --recursive https://github.com/afshawnlotfi/SU2
           cd SU2
           git checkout ${{ matrix.branch }}
           ./meson.py build -Denable-pywrapper=true -Dwith-mpi=disabled
